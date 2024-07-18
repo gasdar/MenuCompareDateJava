@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class NumberHelper {
 
-    public static int getOptionByUser(String menu, int lowerLimit, int upperLimit, int exitOption) {
+    public static int getOptionByUser(String menu, int lowerLimit, int upperLimit) {
         Scanner scan = new Scanner(System.in);
         int option;
         try {
@@ -16,17 +16,13 @@ public class NumberHelper {
                 option = scan.nextInt();
                 if(option < lowerLimit || option > upperLimit) {
                     System.out.println("Debe ingresar una opción entre ("+lowerLimit+" - "+upperLimit+")");
-                    if(TextHelper.isProcessFinish()) {
-                        return exitOption;
-                    }
                 }
             } while(option < lowerLimit || option > upperLimit);
             return option;
         } catch(InputMismatchException e) {
             System.out.println("Debe ingresar un número de opción.");
-            return getOptionByUser(menu, lowerLimit, upperLimit, exitOption);
+            return getOptionByUser(menu, lowerLimit, upperLimit);
         }
     }
-
 
 }

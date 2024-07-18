@@ -9,4 +9,9 @@ public class TextHelper {
         System.out.print("Desea volver a intentarlo (s/n): ");
         return scan.next().equalsIgnoreCase("n");
     }
+
+    public static boolean notContent(String s) {
+        return s == null || s.trim().isEmpty() || s.isBlank();
+    }
+
 }

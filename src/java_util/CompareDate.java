@@ -6,7 +6,6 @@ import helpers.NumberHelper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner;
 
 public class CompareDate {
 
@@ -46,9 +45,9 @@ public class CompareDate {
         int opcion;
         System.out.println("\n******************************************");
         System.out.println("BIENVENIDO AL MÉNU DE OPCIONES");
-        menu = "MENÚ PRINCIPAL\n\n(1) Comparar Fecha\n(2) Salir";
+        menu = "MENÚ PRINCIPAL\n(1) Comparar Fecha\n(2) Salir";
         do {
-            opcion = NumberHelper.getOptionByUser(menu,1, 2, 2);
+            opcion = NumberHelper.getOptionByUser(menu,1, 2);
             switch (opcion) {
                 case 1 -> menuCompareDate();
                 default -> {
@@ -66,7 +65,7 @@ public class CompareDate {
         menu = "(1) Fecha Ingresada VS Fecha Actual\n(2) Atrás";
 
         do {
-            option = NumberHelper.getOptionByUser(menu, 1, 2, 2);
+            option = NumberHelper.getOptionByUser(menu, 1, 2);
             switch (option) {
                 case 1 -> compareDateByUser();
             }
@@ -78,14 +77,17 @@ public class CompareDate {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha;
         String fechaUsuario;
-        Scanner scan = new Scanner(System.in);
 
+        // VERIFICAMOS FORMATO
         fechaUsuario = DateHelper.getDateByUser("Ingrese una fecha con el formato (YYYY-MM-DD): ");
         if(fechaUsuario == null) {
             return;
         }
         try {
             fecha = df.parse(fechaUsuario);
+            System.out.println("******************************************");
+            System.out.println("fecha = " + fecha);
+            System.out.println("(df.format(fecha)) = " + (df.format(fecha)));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
