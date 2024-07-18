@@ -48,37 +48,47 @@ public class CompareDate {
         System.out.println("BIENVENIDO AL MÉNU DE OPCIONES");
         menu = "MENÚ PRINCIPAL\n\n(1) Comparar Fecha\n(2) Salir";
         do {
-            System.out.println("******************************************");
-            System.out.println(menu);
-            opcion = NumberHelper.getOptionByUser(1, 2);
+            opcion = NumberHelper.getOptionByUser(menu,1, 2, 2);
             switch (opcion) {
-                case 1 -> compareDate();
+                case 1 -> menuCompareDate();
                 default -> {
+                    System.out.println("******************************************");
                     System.out.println("Muchas gracias por utilizar el programa!!");
                 }
             }
         } while(opcion != 2);
 
+    }
+
+    private static void menuCompareDate() {
+        String menu;
+        int option;
+        menu = "(1) Fecha Ingresada VS Fecha Actual\n(2) Atrás";
+
+        do {
+            option = NumberHelper.getOptionByUser(menu, 1, 2, 2);
+            switch (option) {
+                case 1 -> compareDateByUser();
+            }
+        } while(option != 2);
+
+    }
+
+    private static void compareDateByUser() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha;
         String fechaUsuario;
         Scanner scan = new Scanner(System.in);
 
-
+        fechaUsuario = DateHelper.getDateByUser("Ingrese una fecha con el formato (YYYY-MM-DD): ");
+        if(fechaUsuario == null) {
+            return;
+        }
         try {
-            do {
-                fechaUsuario = DateHelper.getDateByUser("Ingrese una fecha con el formato (YYYY-MM-DD): ");
-                if(fechaUsuario == null) {
-
-                }
-            } while(fechaUsuario == null);
-            fecha = df.parse();
+            fecha = df.parse(fechaUsuario);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 
 }
