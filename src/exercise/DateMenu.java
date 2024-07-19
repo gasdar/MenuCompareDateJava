@@ -1,13 +1,14 @@
- package java_util;
+ package exercise;
 
 import helpers.DateHelper;
 import helpers.NumberHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class CompareDate {
+ public class DateMenu {
 
     // 80. COMPARAR FECHAS
     /*
@@ -32,30 +33,39 @@ public class CompareDate {
         REALIZAR EJERCICIO DONDE SE CREA UN MENÚ DE OPCIONES:
 
         1. Comparar Fecha
-        2. Salir
+        2. Calcular Edad
+        3. Salir
 
-        1. =>
+        1.
             1. Fecha Ingresada vs Actual
             2. Atrás
-        2. =>
-            Finalizar programa
+        2.
+            Para esta tarea se pide ingresar una fecha de nacimiento en formato
+            string, convertirla a una fecha del tipo java.util.Date y calcular
+            la edad de la persona de acuerdo a la fecha actual.
+            Intentar usar solo lo visto hasta el momento, no el api de java 8
+            que lo veremos más adelante, también se pueden apoyar de google que
+            hay varios ejemplos.
+        3.
+            Salir
         */
 
         String menu;
         int opcion;
         System.out.println("\n******************************************");
         System.out.println("BIENVENIDO AL MÉNU DE OPCIONES");
-        menu = "MENÚ PRINCIPAL\n(1) Comparar Fecha\n(2) Salir";
+        menu = "MENÚ PRINCIPAL\n(1) Comparar Fecha\n(2) Calcular Edad\n(3) Salir";
         do {
-            opcion = NumberHelper.getOptionByUser(menu,1, 2);
+            opcion = NumberHelper.getOptionByUser(menu,1, 3);
             switch (opcion) {
                 case 1 -> menuCompareDate();
+                case 2 -> calculateAge();
                 default -> {
                     System.out.println("******************************************");
                     System.out.println("Muchas gracias por utilizar el programa!!");
                 }
             }
-        } while(opcion != 2);
+        } while(opcion != 3);
 
     }
 
@@ -112,6 +122,40 @@ public class CompareDate {
                 System.out.println("fecha1 es igual a fecha2");
             }
         } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void calculateAge() {
+        String fechaFormato;
+        int edad, anioActual, mesActual, diaActual, anioUsuario, mesUsuario, diaUsuario;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar fechaNacimiento = Calendar.getInstance(), fechaActual;
+
+        try {
+            do {
+                fechaFormato = DateHelper.getDateByUser("Ingrese su fecha de nacimiento con el formato (YYYY-MM-DD): ");
+                if(fechaFormato == null) {
+                    return;
+                }
+                fechaNacimiento.setTime(df.parse(fechaFormato));
+                fechaActual = Calendar.getInstance();
+                if(fechaNacimiento.after(fechaActual)) {
+                    System.out.println("Debe ingresar una fecha inferior a la actual");
+                }
+            } while(fechaNacimiento.after(fechaActual));
+            anioActual = fechaActual.get(Calendar.YEAR);
+            mesActual = fechaActual.get(Calendar.MONTH);
+            diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
+            anioUsuario = fechaNacimiento.get(Calendar.YEAR);
+            mesUsuario = fechaNacimiento.get(Calendar.MONTH);
+            diaUsuario = fechaNacimiento.get(Calendar.DAY_OF_MONTH);
+            edad = anioActual - anioUsuario; // 2024-04-28 vs 2020-04-29
+            if(mesUsuario>mesActual || (mesUsuario==mesActual && diaUsuario>diaActual)) {
+                edad -= 1;
+            }
+            System.out.println("Su edad es de: " + edad + " años");
+        } catch(ParseException e) {
             throw new RuntimeException(e);
         }
     }

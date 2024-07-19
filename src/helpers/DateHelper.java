@@ -14,10 +14,10 @@ public class DateHelper {
             System.out.print(m);
             dateFormat = scan.next();
             if(TextHelper.notContent(dateFormat)) {
-                System.out.println("Debe ingresar un valor para el formato de fecha.");
+                System.out.println("Debe ingresar un valor para el formato de fecha");
                 tryAgain = true;
             } else if(!containDateFormat(dateFormat)) {
-                System.out.println("Debe ingresar el formato de fecha (YYYY-MM-DD).");
+                System.out.println("Debe ingresar el formato de fecha (YYYY-MM-DD)");
                 tryAgain = true;
             } else if(notDateRange(dateFormat.split("-")[0], 1900, 2100)) {
                 System.out.println("Debe ingresar un año entre 1900 - 2100");
@@ -60,7 +60,7 @@ public class DateHelper {
     }
 
     private static int daysByMonthAndYear(int month, int year) {
-        int days=0;
+        int days;
         switch(month) {
             case 1,3,5,7,8,10,12 -> days=31;
             case 4,6,9,11 -> days=30;
