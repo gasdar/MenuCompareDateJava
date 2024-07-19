@@ -75,7 +75,7 @@ public class CompareDate {
 
     private static void compareDateByUser() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha;
+        Date fecha1;
         String fechaUsuario;
 
         // VERIFICAMOS FORMATO
@@ -84,10 +84,33 @@ public class CompareDate {
             return;
         }
         try {
-            fecha = df.parse(fechaUsuario);
+            fecha1 = df.parse(fechaUsuario);
+            Date fecha2 = new Date();
             System.out.println("******************************************");
-            System.out.println("fecha = " + fecha);
-            System.out.println("(df.format(fecha)) = " + (df.format(fecha)));
+            System.out.println("COMPARACIÓN DE FECHAS CON AFTER Y BEFORE");
+            if(fecha1.after(fecha2)) {
+                System.out.println("fecha1 (del usuario) es después/mayor que fecha2 (actual)");
+            } else if(fecha1.before(fecha2)) {
+                System.out.println("fecha1 (del usuario) es antes/menor que fecha2 (actual)");
+            } else if(fecha1.equals(fecha2)) {
+                System.out.println("fecha1 es igual a fecha2");
+            }
+            System.out.println("fecha1 = " + fecha1);
+            System.out.println("fecha2 = " + fecha2);
+            System.out.println("(df.format(fecha1)) = " + (df.format(fecha1)));
+            System.out.println("(df.format(fecha2)) = " + (df.format(fecha2)));
+
+            System.out.println("******************************************");
+            System.out.println("COMPARACIÓN DE FECHAS CON COMPARE_TO");
+            // Retorna un int, si el valor es mayor a 0 es porque es fecha1 es
+            // mayor que fecha2.
+            if(fecha1.compareTo(fecha2) > 0) {
+                System.out.println("fecha1 (del usuario) es después/mayor que fecha2 (actual)");
+            } else if(fecha1.compareTo(fecha2) < 0) {
+                System.out.println("fecha1 (del usuario) es antes/menor que fecha2 (actual)");
+            } else if(fecha1.compareTo(fecha2) == 0) {
+                System.out.println("fecha1 es igual a fecha2");
+            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
